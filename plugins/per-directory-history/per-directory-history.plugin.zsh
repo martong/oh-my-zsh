@@ -143,7 +143,12 @@ function _per-directory-history-set-global-history() {
 chpwd_functions=(${chpwd_functions[@]} "_per-directory-history-change-directory")
 zshaddhistory_functions=(${zshaddhistory_functions[@]} "_per-directory-history-addhistory")
 
-#start in directory mode
 mkdir -p ${_per_directory_history_directory:h}
-_per_directory_history_is_global=true
-_per-directory-history-set-directory-history
+if [[ $PER_DIRECTORY_HISTORY_DEFAULT_GLOBAL_HISTORY == true ]]; then
+  _per_directory_history_is_global=false
+  _per-directory-history-set-global-history
+else
+  _per_directory_history_is_global=true
+  _per-directory-history-set-directory-history
+fi
+
