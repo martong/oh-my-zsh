@@ -19,7 +19,7 @@ function padding() {
 	fi
 }
 
-PROMPT=$'%{$fg_bold[green]%}%m %{$fg[blue]%}%D{[%H:%M:%S]} %{$reset_color%}%{$fg[white]%}[%~]%{$reset_color%} $(git_prompt_info2)$(padding)\
+PROMPT=$'%{$fg_bold[green]%}%m %{$fg[blue]%}%D{[%H:%M:%S]} %{$reset_color%}%{$fg[white]%}[%~]%{$reset_color%} $(git_prompt_info2)%{$reset_color%}$(padding)\
 $(vi_mode_prompt_info)%{$fg[blue]%}->%(?.%{$fg[green]%}.%{$fg[red]%}) %#%{$reset_color%} '
 
 ZSH_THEME_GIT_PROMPT_NOCACHE="yes"
