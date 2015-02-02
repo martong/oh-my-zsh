@@ -19,10 +19,15 @@ function padding() {
 	fi
 }
 
+# https://github.com/robbyrussell/oh-my-zsh/issues/3537
+TRAPWINCH() {
+  [[ -o zle ]] && zle reset-prompt; zle -R
+}
+
 NORMAL_MODE_INDICATOR="%{$fg[blue]%}-->%{$reset_color%}"
 function vi_mode_prompt_info_egbomrt() {
   #echo "km:$KEYMAP"
-  echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins|)/$NORMAL_MODE_INDICATOR}"
+  echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/$NORMAL_MODE_INDICATOR}"
 }
 
 PROMPT=$'%{$fg_bold[green]%}%m %{$fg[blue]%}%D{[%H:%M:%S]} %{$reset_color%}%{$fg[white]%}[%~]%{$reset_color%} $(git_prompt_info2)%{$reset_color%}$(padding)\
