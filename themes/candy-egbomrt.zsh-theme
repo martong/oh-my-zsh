@@ -1,4 +1,34 @@
+# git_super_status
 source ~/.zsh/git-prompt/zshrc.sh
+
+# FIX FOR OH MY ZSH GIT PROMPT SLOWNESS
+# http://marc-abramowitz.com/archives/2012/04/10/fix-for-oh-my-zsh-git-svn-prompt-slowness/
+function addGitSuperStatusHooks {
+  add-zsh-hook chpwd chpwd_update_git_vars
+  add-zsh-hook preexec preexec_update_git_vars
+  add-zsh-hook precmd precmd_update_git_vars
+}
+function removeGitSuperStatusHooks {
+  add-zsh-hook -d chpwd chpwd_update_git_vars
+  add-zsh-hook -d preexec preexec_update_git_vars
+  add-zsh-hook -d precmd precmd_update_git_vars
+}
+function git_prompt_info2() {
+	if [ "$NO_GITSTATUS" = "absolutelyNothing" ]; then
+		echo "no-git-status"
+	elif [ -n "$NO_GITSTATUS" ]; then
+		# From gitfast
+		git_prompt_info
+		#ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+		#echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+	else
+		#git_prompt_info
+		#echo -e "$(printBranch)"
+		git_super_status
+	fi
+}
+#NO_GITSTATUS="yes"
+
 
 # This function is a workaround to a strange zsh bug with multi-line
 # prompts and vi-mode (zle reset-prompt)
